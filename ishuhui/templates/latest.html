@@ -13,9 +13,8 @@
                 {% for chapter in chapters %}
                     {% set comic = chapter.comic() %}
                     <div class="col col-sm-6 col-md-4 mb-3">
-                        <div class="card mdui-card mdui-card-hoverable text-white">
-                            <img class="card-img" src="{{ chapter.front_cover }}" alt="Card image">
-                            <div class="card-img-overlay" style="background-color: rgba(32,32,32,0.6)">
+                        <div class="card mdui-card mdui-card-hoverable text-white" style="background: url('{{ chapter.front_cover }}') no-repeat center;background-size: cover">
+                            <div class="card-body" style="background-color: rgba(32,32,32,0.6)">
                                 <h3 class="card-title comic-title">{{ comic.title }}{{ chapter.chapter_number }}话</h3>
                                 <h5 class="card-title chapter-title">{{ chapter.title }}</h5>
                                 <p class="card-text comic-description">{{ comic.description }}</p>
