@@ -1,0 +1,5 @@
+env.py
+tmp/ishuhui.db
+.vscode
+.idea
+*.pyc

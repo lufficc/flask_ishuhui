@@ -1,0 +1,13 @@
+{% extends "layout.html" %} {% block content %}
+    <div class="mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{{ url }}">Origin</a></li>
+        </ol>
+        {% for image in images %}
+            <img src="{{ image }}" class="img-fluid" style="margin-left:auto;margin-right:auto">
+        {% endfor %}
+    </div>
+{% endblock %}
