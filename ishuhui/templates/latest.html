@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}{{ comic.title }}{% endblock %}
+{% block head %}
+    <meta name="referrer" content="never"> {{ super() }}
+{% endblock %}
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="mt-3">
+        <div id="chapters">
+            <input type="search" class="search mb-3 form-control form-control-lg"
+                   placeholder="Search for title or chapter number from {{ chapters|length }} chapters.">
+            <div class="row" data-masonry='{ "itemSelector": ".col", "columnWidth":".col" }'>
+                {% for chapter in chapters %}
+                    {% set comic = chapter.comic() %}
+                    <div class="col col-sm-6 col-md-4 mb-3">
+                        <div class="card mdui-card mdui-card-hoverable text-white">
+                            <img class="card-img" src="{{ chapter.front_cover }}" alt="Card image">
+                            <div class="card-img-overlay" style="background-color: rgba(32,32,32,0.6)">
+                                <h3 class="card-title comic-title">{{ comic.title }}{{ chapter.chapter_number }}话</h3>
+                                <h5 class="card-title chapter-title">{{ chapter.title }}</h5>
+                                <p class="card-text comic-description">{{ comic.description }}</p>
+                                <p class="card-text">
+                                    <small>{{ chapter.refresh_time }}</small>
+                                </p>
+                                <a href="{{ url_for('comic.chapter', comic_id=chapter.comic_id, chapter_id=chapter.id) }}"
+                                   class="btn btn-primary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+    <script>
+        var options = {
+            valueNames: ['comic-title', 'chapter-title', 'comic-description'],
+            listClass: 'row'
+        };
+        var list = new List('chapters', options);
+        list.on('updated', function () {
+            $('.row').masonry();
+        });
+        $('.row').imagesLoaded().progress(function () {
+            $('.row').masonry();
+        });
+    </script>
+{% endblock %}

@@ -35,5 +35,5 @@ def get_chapter(chapter_id):
     return Chapter.query.get(chapter_id)
 
 
-def get_latest_chapters():
-    return Chapter.query.order_by(Chapter.refresh_time.desc()).limit(10).all()
+def get_latest_chapters(cnt=10):
+    return Chapter.query.order_by(Chapter.refresh_time.desc()).limit(cnt).all()

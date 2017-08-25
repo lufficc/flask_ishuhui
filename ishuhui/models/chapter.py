@@ -1,4 +1,5 @@
 from ishuhui.extensions.flasksqlalchemy import db
+import ishuhui.data
 
 
 class Chapter(db.Model):
@@ -11,3 +12,6 @@ class Chapter(db.Model):
     front_cover = db.Column(db.String(256), nullable=True)
     refresh_time = db.Column(db.DateTime, nullable=True)
     images = db.Column(db.Text, nullable=True)
+
+    def comic(self):
+        return ishuhui.data.get_comic(self.comic_id)

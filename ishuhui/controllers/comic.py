@@ -8,9 +8,15 @@ bp_comic = Blueprint('comic', __name__)
 
 
 @bp_comic.route('/')
-def index():
+def latest_chapters():
+    chapters = data.get_latest_chapters(15)
+    return render_template('latest.html', comic=None, chapters=chapters)
+
+
+@bp_comic.route('/comics')
+def comics():
     comics = data.get_comics()
-    return render_template('index.html', comics=comics)
+    return render_template('comics.html', comics=comics)
 
 
 @bp_comic.route('/comics/<int:comic_id>/chapters')
@@ -56,10 +62,3 @@ def chapter(comic_id, chapter_id):
     return render_template(
         'images.html', comic=comic, chapter=chapter, next_chapter=next_chapter, prev_chapter=prev_chapter,
         images=images, url=url)
-
-
-@bp_comic.route('/latest')
-def latest_chapters():
-    chapters = data.get_latest_chapters()
-    comic = data.get_comic(2)
-    return render_template('chapters.html', comic=comic, chapters=chapters)
