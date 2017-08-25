@@ -40,8 +40,11 @@
 {% block footer %}
     {{ super() }}
     <script>
-        var viewer = new Viewer(document.getElementById('images'), {});
-
+        var viewer = new Viewer(document.getElementById('images'), {
+            minZoomRatio: 0.1,
+            zoomRatio: 0.25,
+            toolbar: 3
+        });
         function view() {
             viewer.show()
         }

@@ -9,7 +9,7 @@ bp_comic = Blueprint('comic', __name__)
 
 @bp_comic.route('/')
 def latest_chapters():
-    chapters = data.get_latest_chapters(15)
+    chapters = data.get_latest_chapters(12)
     return render_template('latest.html', comic=None, chapters=chapters)
 
 
