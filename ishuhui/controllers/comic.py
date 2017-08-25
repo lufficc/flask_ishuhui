@@ -1,5 +1,5 @@
 import lxml.html
-from flask import render_template, Blueprint, json, abort
+from flask import render_template, Blueprint, json, abort, current_app
 
 import ishuhui.data as data
 from ishuhui.extensions.flasksqlalchemy import db
@@ -51,4 +51,5 @@ def chapter(comic_id, chapter_id):
         images = get_images_from_url(url)
         chapter.images = json.dumps(images)
         db.session.commit()
-    return render_template('images.html', comic=comic, images=images, url=url)
+    return render_template(
+        'images.html', comic=comic, chapter=chapter, images=images, url=url)
