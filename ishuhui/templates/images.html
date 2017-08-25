@@ -5,7 +5,7 @@
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
         </li>
-        <li class="breadcrumb-item active">{{ comic.title }}第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
+        <li class="breadcrumb-item active">第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
     </ol>
     <div class="card mdui-card mdui-hoverable" id="images">
         {% for image in images %}
