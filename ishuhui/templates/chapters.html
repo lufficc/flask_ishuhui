@@ -15,8 +15,8 @@
             </div>
         </div>
         <div id="chapters">
-            <input type="text" class="search mb-3 form-control form-control-lg"
-                   placeholder="Search for title or chapter number">
+            <input type="search" class="search mb-3 form-control form-control-lg"
+                   placeholder="Search for title or chapter number from {{ chapters|length }} chapters.">
             <div class="row" data-masonry='{ "itemSelector": ".col", "columnWidth":".col" }'>
                 {% for chapter in chapters %}
                     <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 mb-3">

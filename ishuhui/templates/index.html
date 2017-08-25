@@ -2,14 +2,14 @@
     <div class="mt-3">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span>&times;</span>
             </button>
-            <strong>Hello!</strong>Welcome.
+            Welcome! Visit on <a href="https://github.com/lufficc/flask_ishuhui" target="_blank" class="alert-link">GitHub</a>.
         </div>
 
         <div id="comics">
-            <input type="text" class="search mb-3 form-control form-control-lg"
-                   placeholder="Search for names or description">
+            <input type="search" class="search mb-3 form-control form-control-lg"
+                       placeholder="Search from {{ comics|length }} comics.">
             <div class="row" data-masonry='{ "itemSelector": ".col", "columnWidth":".col" }'>
                 {% for comic in comics %}
                     <div class="col col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
@@ -18,7 +18,9 @@
                             <div class="card-body">
                                 <h4 class="title card-title">{{ comic.title }}</h4>
                                 <p class="description card-text">{{ comic.description }}
-                                    <small class="text-muted"><em> -- {{ comic.author }}</em></small>
+                                    {% if comic.author %}
+                                        <small class="text-muted"><em> -- {{ comic.author }}</em></small>
+                                    {% endif %}
                                 </p>
                                 <footer>
                                     <p class="card-text">

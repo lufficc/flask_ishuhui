@@ -1,3 +1,5 @@
+import datetime
+import json
 import requests
 
 import ishuhui.data as data
@@ -11,6 +13,15 @@ def load_comics(page):
         "http://www.ishuhui.net/ComicBooks/GetAllBook",
         params={"PageIndex": page})
     return response.json()['Return']['List']
+
+
+def parse_date(time_str):
+    """
+    :param time_str: like "/Date(1453196817000)/"
+    :return: datetime
+    """
+    timestamp = int(time_str[6:-2])
+    return datetime.datetime.fromtimestamp(timestamp / 1e3)
 
 
 def fill_comics():
@@ -28,7 +39,7 @@ def fill_comics():
                 newComic.id = comic['Id']
                 newComic.title = comic['Title']
                 newComic.description = comic['Explain']
-                newComic.refresh_time = comic['RefreshTimeStr']
+                newComic.refresh_time = parse_date(comic['RefreshTime'])
                 newComic.author = comic['Author']
                 newComic.classify_id = comic['ClassifyId']
                 newComic.front_cover = comic['FrontCover']
@@ -36,7 +47,7 @@ def fill_comics():
                 db.session.commit()
                 result.append(comic['Id'])
             except Exception as e:
-                print('exception occur when save comic {}'.format(comic['Id']))
+                print('exception occur when save comic {} :{}'.format(comic['Id'], e))
         page += 1
         comics = load_comics(page)
     return result
@@ -78,6 +89,8 @@ def refresh_comic_image():
             result[comic.id] = url
             print('refresh comic {} cover succeed, url :{}'.format(
                 comic.id, url))
+        else:
+            print('failed comic {}'.format(comic.id))
     return result
 
 
@@ -97,7 +110,7 @@ def refresh_chapter(comic_id):
                 newChapter.comic_id = comic_id
                 newChapter.chapter_number = chapter['ChapterNo']
                 newChapter.front_cover = chapter['FrontCover']
-                newChapter.refresh_time = chapter['RefreshTimeStr']
+                newChapter.refresh_time = parse_date(chapter['RefreshTime'])
                 db.session.add(newChapter)
                 saved_chapter_num += 1
             except Exception as e:
