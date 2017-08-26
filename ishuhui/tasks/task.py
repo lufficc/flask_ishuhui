@@ -2,6 +2,7 @@ import datetime
 import json
 
 import requests
+from flask import current_app
 
 import ishuhui.data as data
 from ishuhui.extensions.flasksqlalchemy import db
@@ -28,13 +29,13 @@ def parse_date(time_str):
 def refresh_comics():
     page = 0
     comics = load_comics(page)
-    print('get {} comics of page {}'.format(len(comics), page))
+    current_app.logger.info('get {} comics of page {}'.format(len(comics), page))
     result = []
     while len(comics) > 0:
         for comic in comics:
             try:
                 if Comic.query.get(comic['Id']):
-                    print('comic {} already existed'.format(comic['Id']))
+                    current_app.logger.info('comic {} already existed'.format(comic['Id']))
                     continue
                 new_comic = Comic()
                 new_comic.id = comic['Id']
@@ -48,7 +49,7 @@ def refresh_comics():
                 db.session.commit()
                 result.append(comic['Id'])
             except Exception as e:
-                print('exception occur when save comic {} :{}'.format(comic['Id'], e))
+                current_app.logger.error('exception occur when save comic {} :{}'.format(comic['Id'], e))
         page += 1
         comics = load_comics(page)
     return result
@@ -77,7 +78,7 @@ def refresh_comic_images():
     for comic in comics:
         front_cover = comic.front_cover
         if 'ishuhui' not in front_cover:
-            print('comic {} already refreshed'.format(comic.id))
+            current_app.logger.info('comic {} already refreshed'.format(comic.id))
             continue
         image = requests.get(front_cover).content
         files = {'smfile': image}
@@ -88,10 +89,10 @@ def refresh_comic_images():
             comic.front_cover = url
             db.session.commit()
             result[comic.id] = url
-            print('refresh comic {} cover succeed, url :{}'.format(
+            current_app.logger.info('refresh comic {} cover succeed, url :{}'.format(
                 comic.id, url))
         else:
-            print('failed comic {}'.format(comic.id))
+            current_app.logger.info('failed comic {}'.format(comic.id))
     return result
 
 
@@ -103,7 +104,7 @@ def refresh_chapter(comic_id):
         for chapter in chapters:
             try:
                 if Chapter.query.get(chapter['Id']):
-                    print('Chapter {} already existed'.format(chapter['Id']))
+                    current_app.logger.info('Chapter {} already existed'.format(chapter['Id']))
                     continue
                 newChapter = Chapter()
                 newChapter.id = chapter['Id']
@@ -115,10 +116,9 @@ def refresh_chapter(comic_id):
                 db.session.add(newChapter)
                 saved_chapter_num += 1
             except Exception as e:
-                # print(e)
-                pass
+                current_app.logger.warning(e)
         page += 1
         chapters = load_chapters(page, comic_id)
     db.session.commit()
-    print('saved {} chapters of comic {}'.format(saved_chapter_num, comic_id))
+    current_app.logger.info('saved {} chapters of comic {}'.format(saved_chapter_num, comic_id))
     return comic_id, saved_chapter_num

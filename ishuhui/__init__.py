@@ -8,6 +8,9 @@ def create_app(config):
     from ishuhui.extensions.flasksqlalchemy import db
     db.init_app(app)
 
+    from ishuhui.logger import init_logger
+    init_logger(app)
+
     from ishuhui.controllers.comic import bp_comic
     app.register_blueprint(bp_comic)
 
