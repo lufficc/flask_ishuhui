@@ -1,5 +1,6 @@
 import datetime
 import json
+
 import requests
 
 import ishuhui.data as data
@@ -24,7 +25,7 @@ def parse_date(time_str):
     return datetime.datetime.fromtimestamp(timestamp / 1e3)
 
 
-def fill_comics():
+def refresh_comics():
     page = 0
     comics = load_comics(page)
     print('get {} comics of page {}'.format(len(comics), page))
@@ -35,15 +36,15 @@ def fill_comics():
                 if Comic.query.get(comic['Id']):
                     print('comic {} already existed'.format(comic['Id']))
                     continue
-                newComic = Comic()
-                newComic.id = comic['Id']
-                newComic.title = comic['Title']
-                newComic.description = comic['Explain']
-                newComic.refresh_time = parse_date(comic['RefreshTime'])
-                newComic.author = comic['Author']
-                newComic.classify_id = comic['ClassifyId']
-                newComic.front_cover = comic['FrontCover']
-                db.session.add(newComic)
+                new_comic = Comic()
+                new_comic.id = comic['Id']
+                new_comic.title = comic['Title']
+                new_comic.description = comic['Explain']
+                new_comic.refresh_time = parse_date(comic['RefreshTime'])
+                new_comic.author = comic['Author']
+                new_comic.classify_id = comic['ClassifyId']
+                new_comic.front_cover = comic['FrontCover']
+                db.session.add(new_comic)
                 db.session.commit()
                 result.append(comic['Id'])
             except Exception as e:
@@ -61,7 +62,7 @@ def load_chapters(page, comic_id):
     return response.json()['Return']['List']
 
 
-def fill_chapters():
+def refresh_chapters():
     comics = data.get_comics()
     result = {}
     for comic in comics:
@@ -70,12 +71,12 @@ def fill_chapters():
     return result
 
 
-def refresh_comic_image():
+def refresh_comic_images():
     comics = data.get_comics()
     result = dict()
     for comic in comics:
         front_cover = comic.front_cover
-        if 'i.loli.net' in front_cover or 'ooo.0o0.ooo' in front_cover:
+        if 'ishuhui' not in front_cover:
             print('comic {} already refreshed'.format(comic.id))
             continue
         image = requests.get(front_cover).content

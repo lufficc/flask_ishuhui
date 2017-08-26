@@ -16,4 +16,7 @@ def create_app(config):
 
     from ishuhui.controllers.error import bp_error
     app.register_blueprint(bp_error)
+
+    from ishuhui.schedulers.scheduler import init_scheduler
+    init_scheduler(app)
     return app
