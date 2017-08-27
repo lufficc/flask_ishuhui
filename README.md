@@ -19,6 +19,8 @@ and real time search by [List.js](http://listjs.com).
 1. `cd flask_ishuhui`
 1. `python run.py`
 1. Open localhost:5000
+1. Visit `admin/refresh_comics` to fill all comics to database.
+1. Visit `admin/refresh_chapters` to fill all chapters to database.
 
 Don't forget to create db file firstly.
 
