@@ -106,14 +106,14 @@ def refresh_chapter(comic_id):
                 if Chapter.query.get(chapter['Id']):
                     current_app.logger.info('Chapter {} already existed'.format(chapter['Id']))
                     continue
-                newChapter = Chapter()
-                newChapter.id = chapter['Id']
-                newChapter.title = chapter['Title']
-                newChapter.comic_id = comic_id
-                newChapter.chapter_number = chapter['ChapterNo']
-                newChapter.front_cover = chapter['FrontCover']
-                newChapter.refresh_time = parse_date(chapter['RefreshTime'])
-                db.session.add(newChapter)
+                new_chapter = Chapter()
+                new_chapter.id = chapter['Id']
+                new_chapter.title = chapter['Title']
+                new_chapter.comic_id = comic_id
+                new_chapter.chapter_number = chapter['ChapterNo']
+                new_chapter.front_cover = chapter['FrontCover']
+                new_chapter.refresh_time = parse_date(chapter['RefreshTime'])
+                db.session.add(new_chapter)
                 saved_chapter_num += 1
             except Exception as e:
                 current_app.logger.warning(e)

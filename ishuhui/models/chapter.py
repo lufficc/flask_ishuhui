@@ -8,7 +8,6 @@ class Chapter(db.Model):
     title = db.Column(db.String(256), nullable=False)
     comic_id = db.Column(db.Integer, nullable=False)
     chapter_number = db.Column(db.Integer, nullable=False)
-    author = db.Column(db.String(256), nullable=True)
     front_cover = db.Column(db.String(256), nullable=True)
     refresh_time = db.Column(db.DateTime, nullable=True)
     images = db.Column(db.Text, nullable=True)
