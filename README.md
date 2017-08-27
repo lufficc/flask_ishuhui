@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.loli.net/2017/08/27/59a2ca890206c.gif" style:"width:80%" alt="Ishuhui!"/>
+  <img src="https://i.loli.net/2017/08/27/59a2ca890206c.gif" style="width:80%" alt="Ishuhui!"/>
 </p>
 
 ## Ishuhui
