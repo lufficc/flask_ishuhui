@@ -3,3 +3,4 @@
 *.pyc
 ishuhui/tmp/*.*
 *.log
+.gitignore
