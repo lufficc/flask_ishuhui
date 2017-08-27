@@ -22,4 +22,7 @@ def create_app(config):
 
     from ishuhui.schedulers.scheduler import init_scheduler
     init_scheduler(app)
+
+    with app.app_context():
+        db.create_all()
     return app

@@ -22,8 +22,6 @@ and real time search by [List.js](http://listjs.com).
 1. Visit `admin/refresh_comics` to fill all comics to database.
 1. Visit `admin/refresh_chapters` to fill all chapters to database.
 
-Don't forget to create db file firstly.
-
 ### License
 
 Licensed under the [MIT License](http://kbrsh.github.io/license).
