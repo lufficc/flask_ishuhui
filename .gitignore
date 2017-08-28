@@ -1,6 +1,4 @@
 .vscode
 .idea
 *.pyc
-ishuhui/tmp/*.*
 *.log
-.gitignore

@@ -13,6 +13,12 @@ and real time search by [List.js](http://listjs.com).
 * Controllers, logger, scheduler, extensions, models, tasks etc.
 * Front end build with [Bootstrap4](https://github.com/twbs/bootstrap), [List.js](http://listjs.com), [Viewer.js](https://fengyuanchen.github.io/viewerjs/), [Masonry](https://masonry.desandro.com/), [MDUI](https://www.mdui.org/), and [imagesLoaded](https://imagesloaded.desandro.com/).
 
+### Dependencies
+
+- `flask_apscheduler`
+- `flask_sqlalchemy`
+- `lxml`
+
 ### Usage
 
 1. `git clone https://github.com/lufficc/flask_ishuhui.git`
