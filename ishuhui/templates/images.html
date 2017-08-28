@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}{{ comic.title }}{{ chapter.chapter_number }}-{{ chapter.title }}{% endblock %}
 {% block content %}
-    {% block head %}
-        <meta name="referrer" content="never"> {{ super() }}
-    {% endblock %}
     <div class="mt-3">
         <ol class="breadcrumb" id="top">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
