@@ -1,49 +1,63 @@
 {% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<link href="https://cdn.bootcss.com/lightgallery/1.6.0/css/lightgallery.min.css" rel="stylesheet">
+{% endblock %}
 {% block title %}{{ comic.title }}{{ chapter.chapter_number }}-{{ chapter.title }}{% endblock %}
 {% block content %}
-    <div class="mt-3">
-        <ol class="breadcrumb" id="top">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a
-                    href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
-            </li>
-            <li class="breadcrumb-item active">第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
-        </ol>
-
-        <div class="card mdui-card" id="images">
-            <div>
-                {% for image in images %}
-                    <img src="{{ image }}" class="img-fluid mb-1"
-                         style="width:100%;display:block;margin-left:auto;margin-right:auto;">
-                {% endfor %}
+    <div class="row justify-content-center">
+        <div class="mt-3 col-md-8">
+            <ol class="breadcrumb" id="top">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a
+                        href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
+                </li>
+                <li class="breadcrumb-item active">第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
+            </ol>
+    
+            <div class="card mdui-card" id="images">
+                <div class="card-header">
+                        {% if prev_chapter %}
+                            <a class="float-left"
+                                href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=prev_chapter.id) }}">Prev({{ prev_chapter.title }})</a>
+                        {% endif %}
+                        {% if next_chapter %}
+                            <a class="float-right"
+                                href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=next_chapter.id) }}">Next({{ next_chapter.title }})</a>
+                        {% endif %}
+                </div>
+                <div>
+                    {% for image in images %}
+                        <div class="image" data-src="{{ image }}">
+                            <img src="{{ image }}" class="img-fluid mb-1"
+                            style="width:100%;display:block;">
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer">
+                    {% if prev_chapter %}
+                        <a class="float-left"
+                           href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=prev_chapter.id) }}">Prev({{ prev_chapter.title }})</a>
+                    {% endif %}
+                    {% if next_chapter %}
+                        <a class="float-right"
+                           href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=next_chapter.id) }}">Next({{ next_chapter.title }})</a>
+                    {% endif %}
+                </div>
             </div>
-            <div class="card-footer">
-                {% if prev_chapter %}
-                    <a class="float-left"
-                       href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=prev_chapter.id) }}">Prev({{ prev_chapter.title }})</a>
-                {% endif %}
-                {% if next_chapter %}
-                    <a class="float-right"
-                       href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=next_chapter.id) }}">Next({{ next_chapter.title }})</a>
-                {% endif %}
-            </div>
+            <a href="#top" class="mdui-fab mdui-fab-fixed mdui-ripple"><i class="mdui-icon material-icons">&#xe5d8;</i></a>
         </div>
-        <a href="#top" class="mdui-fab mdui-fab-fixed mdui-ripple" style="bottom:104px"><i
-                class="mdui-icon material-icons">&#xe5d8;</i></a>
-        <button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-teal" onclick="view()"><i
-                class="mdui-icon material-icons">&#xe417;</i></button>
     </div>
 {% endblock %}
 {% block footer %}
     {{ super() }}
+    <script src="https://cdn.bootcss.com/lightgallery/1.6.0/js/lightgallery-all.min.js"></script>
     <script>
-        var viewer = new Viewer(document.getElementById('images'), {
-            minZoomRatio: 0.1,
-            zoomRatio: 0.25,
-            toolbar: 3
+        var gallery = $("#images").lightGallery({
+            selector: '.image',
+            share: false,
+            pause: 10000,
+            closable: false
         });
-        function view() {
-            viewer.show()
-        }
     </script>
 {% endblock %}
