@@ -17,7 +17,6 @@ and real time search by [List.js](http://listjs.com).
 
 - `flask_apscheduler`
 - `flask_sqlalchemy`
-- `lxml`
 
 ### Usage
 

@@ -1,4 +1,4 @@
-import lxml.html
+import re, requests
 from flask import render_template, Blueprint, json, abort
 
 import ishuhui.data as data
@@ -26,9 +26,12 @@ def chapters(comic_id):
     return render_template('chapters.html', comic=comic, chapters=chapters)
 
 
+image_pattern = re.compile(r'<img [^>]*src="([^"]+)')
+
+
 def get_images_from_url(url):
-    tree = lxml.html.parse(url)
-    images = tree.xpath("//img/@src")
+    html = requests.get(url).text
+    images = image_pattern.findall(html)
     return images
 
 
@@ -60,5 +63,10 @@ def chapter(comic_id, chapter_id):
         chapter.images = json.dumps(images)
         db.session.commit()
     return render_template(
-        'images.html', comic=comic, chapter=chapter, next_chapter=next_chapter, prev_chapter=prev_chapter,
-        images=images, url=url)
+        'images.html',
+        comic=comic,
+        chapter=chapter,
+        next_chapter=next_chapter,
+        prev_chapter=prev_chapter,
+        images=images,
+        url=url)
