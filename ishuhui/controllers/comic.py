@@ -1,5 +1,5 @@
 import re, requests
-from flask import render_template, Blueprint, json, abort
+from flask import render_template, Blueprint, json, abort, redirect, request, jsonify, url_for, flash
 
 import ishuhui.data as data
 from ishuhui.extensions.flasksqlalchemy import db
@@ -38,12 +38,12 @@ def get_images_from_url(url):
 @bp_comic.route('/refresh_chapters/<int:chapter_id>', methods=['GET'])
 def refresh_chapter(chapter_id):
     chapter = data.get_chapter(chapter_id)
-    url = 'http://www.ishuhui.net/ComicBooks/ReadComicBooksToIsoV1/' + str(
-        chapter_id) + '.html'
+    url = 'http://www.ishuhui.net/ComicBooks/ReadComicBooksToIsoV1/' + str(chapter_id) + '.html'
     images = get_images_from_url(url)
     chapter.images = json.dumps(images)
     db.session.commit()
-    return json.dumps(images)
+    flash('Refresh succeed!', 'success')
+    return redirect(url_for('comic.chapter', comic_id=chapter.comic().id, chapter_id=chapter.id))
 
 
 @bp_comic.route('/comics/<int:comic_id>/chapters/<int:chapter_id>')

@@ -9,12 +9,23 @@
         <div class="mt-3 col-md-8">
             <ol class="breadcrumb" id="top">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a
-                        href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
+                <li class="breadcrumb-item"><a href="{{ url_for('comic.chapters', comic_id=comic.id) }}">{{ comic.title }}</a>
                 </li>
                 <li class="breadcrumb-item active">第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
             </ol>
-    
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% set (category, message) = messages|first %}
+                    {% set category = 'info' if category == 'message' else category %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <div class="card mdui-card" id="images">
                 <div class="card-header">
                         {% if prev_chapter %}
@@ -45,7 +56,8 @@
                     {% endif %}
                 </div>
             </div>
-            <a href="#top" class="mdui-fab mdui-fab-fixed mdui-ripple"><i class="mdui-icon material-icons">&#xe5d8;</i></a>
+            <a href="#top" class="mdui-fab mdui-fab-fixed mdui-ripple" style="bottom: 100px"><i class="mdui-icon material-icons">&#xe5d8;</i></a>
+            <a href="{{ url_for('comic.refresh_chapter', chapter_id=chapter.id) }}" class="mdui-color-green-400 mdui-text-color-white mdui-fab mdui-fab-fixed mdui-ripple"><i class="mdui-icon material-icons">&#xe5d5;</i></a>
         </div>
     </div>
 {% endblock %}
