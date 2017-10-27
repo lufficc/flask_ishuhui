@@ -3,8 +3,11 @@ from ishuhui.models.comic import Comic
 from sqlalchemy import and_
 
 
-def get_comics():
-    return Comic.query.all()
+def get_comics(classify_id=None):
+    if classify_id is None:
+        return Comic.query.all()
+    else:
+        return Comic.query.filter_by(classify_id=classify_id).all()
 
 
 def get_comic(comic_id):

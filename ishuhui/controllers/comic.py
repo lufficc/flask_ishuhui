@@ -15,7 +15,8 @@ def latest_chapters():
 
 @bp_comic.route('/comics')
 def comics():
-    comics = data.get_comics()
+    classify_id = request.args.get('classify_id')
+    comics = data.get_comics(classify_id)
     return render_template('comics.html', comics=comics)
 
 

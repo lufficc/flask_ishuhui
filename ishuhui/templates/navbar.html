@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
-        <img src="https://i.loli.net/2017/08/26/59a15ddf9c36f.png" width="30" height="30"
-             class="d-inline-block align-top"
-             alt="">
+        <img src="https://i.loli.net/2017/08/26/59a15ddf9c36f.png" width="30" height="30" class="d-inline-block align-top" alt="">
         鼠绘漫画
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -16,6 +14,17 @@
             </li>
             <li class="nav-item{% if request.path=="/comics" %} active{% endif %}">
                 <a class="nav-link" href="{{ url_for('comic.comics') }}">All Comics</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                {% set comics_url = url_for('comic.comics') %}
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ comics_url+'?classify_id=3' }}">鼠绘</a>
+                    <a class="dropdown-item" href="{{ comics_url+'?classify_id=4' }}">热血</a>
+                    <a class="dropdown-item" href="{{ comics_url+'?classify_id=2' }}">国产</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://lufficc.com/">Blog</a>
