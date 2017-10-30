@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
-{% block title %}所有{% endblock %}
+{% set classify_id = request.args.get('classify_id') %}
+{% block title %}
+    {% if classify_id == '2' %}
+        国产
+    {% elif classify_id == '3' %}
+        鼠绘
+    {% elif classify_id == '4' %}
+        热血
+    {% elif classify_id == None %}
+        所有
+    {% endif %}
+{% endblock %}
 {% block content %}
     {% include 'navbar.html' %}
     <div class="mt-3">
