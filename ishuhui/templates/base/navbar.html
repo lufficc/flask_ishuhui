@@ -27,6 +27,23 @@
                     <a class="dropdown-item{% if classify_id == '4' %} active{% endif %}" href="{{ comics_url+'?classify_id=4' }}">热血</a>
                 </div>
             </li>
+            {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ current_user.name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                        <a class="dropdown-item{% if request.path==url_for('admin.mange') %} active{% endif %}" href="{{ url_for('admin.mange') }}">Mange</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav ml-auto justify-content-end">
             <li class="nav-item">
                 <a class="nav-link" href="https://lufficc.com/">Blog</a>
             </li>

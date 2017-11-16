@@ -1,7 +1,7 @@
-{% extends "layout.html" %}
+{% extends "base/layout.html" %}
 {% block title %}{{ comic.title }}{% endblock %}
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include 'base/navbar.html' %}
     <div class="mt-3">
         <div class="card mdui-card" style="margin-bottom:1rem;">
             <div style="height: 7rem; background:url('{{ comic.front_cover }}') no-repeat center center; background-size: cover;">

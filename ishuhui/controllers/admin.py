@@ -1,17 +1,25 @@
-from flask import Blueprint
-from flask import current_app, request, abort, jsonify
+from flask import Blueprint, render_template
+from flask import abort, jsonify
+from flask_login import current_user
 
 import ishuhui.tasks.task as task
+from ..models.chapter import Chapter
+from ..models.comic import Comic
 
 bp_admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 def login():
-    if current_app.config['USERNAME'] != request.args.get('username') or current_app.config['PASSWORD'] != request.args.get('password'):
-        abort(404)
+    if not current_user.is_authenticated:
+        abort(403)
 
 
 bp_admin.before_request(login)
+
+
+@bp_admin.route('/mange', methods=['GET'])
+def mange():
+    return render_template('mange.html', chapter_count=Chapter.query.count(), comic_count=Comic.query.count())
 
 
 @bp_admin.route('/refresh_comics')

@@ -1,7 +1,7 @@
-{% extends "layout.html" %}
+{% extends "base/layout.html" %}
 {% block head %}
-{{ super() }}
-<link href="https://cdn.bootcss.com/lightgallery/1.6.0/css/lightgallery.min.css" rel="stylesheet">
+    {{ super() }}
+    <link href="https://cdn.bootcss.com/lightgallery/1.6.0/css/lightgallery.min.css" rel="stylesheet">
 {% endblock %}
 {% block title %}{{ comic.title }}{{ chapter.chapter_number }}-{{ chapter.title }}{% endblock %}
 {% block content %}
@@ -13,35 +13,23 @@
                 </li>
                 <li class="breadcrumb-item active">第{{ chapter.chapter_number }}话--<strong>{{ chapter.title }}</strong></li>
             </ol>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% set (category, message) = messages|first %}
-                    {% set category = 'info' if category == 'message' else category %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span>&times;</span>
-                        </button>
-                        <strong>{{ message }}</strong>
-                    </div>
-                {% endif %}
-            {% endwith %}
-
+            {% include 'base/msg.html' %}
             <div class="card mdui-card" id="images">
                 <div class="card-header">
-                        {% if prev_chapter %}
-                            <a class="float-left"
-                                href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=prev_chapter.id) }}">Prev({{ prev_chapter.title }})</a>
-                        {% endif %}
-                        {% if next_chapter %}
-                            <a class="float-right"
-                                href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=next_chapter.id) }}">Next({{ next_chapter.title }})</a>
-                        {% endif %}
+                    {% if prev_chapter %}
+                        <a class="float-left"
+                           href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=prev_chapter.id) }}">Prev({{ prev_chapter.title }})</a>
+                    {% endif %}
+                    {% if next_chapter %}
+                        <a class="float-right"
+                           href="{{ url_for('comic.chapter', comic_id=comic.id, chapter_id=next_chapter.id) }}">Next({{ next_chapter.title }})</a>
+                    {% endif %}
                 </div>
                 <div>
                     {% for image in images %}
                         <div class="image" data-src="{{ image }}">
                             <img src="{{ image }}" class="img-fluid mb-1"
-                            style="width:100%;display:block;">
+                                 style="width:100%;display:block;">
                         </div>
                     {% endfor %}
                 </div>

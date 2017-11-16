@@ -64,10 +64,11 @@ def load_chapters(page, comic_id):
 
 def refresh_chapters():
     comics = data.get_comics()
-    result = {}
+    result = []
     for comic in comics:
         comic_id, saved_chapter_num = refresh_chapter(comic.id)
-        result[comic_id] = saved_chapter_num
+        if saved_chapter_num > 0:
+            result.append((comic_id, saved_chapter_num))
     return result
 
 

@@ -1,0 +1,49 @@
+{% extends "base/layout.html" %}
+{% block title %}Mange{% endblock %}
+{% block content %}
+    {% include 'base/navbar.html' %}
+    {% include 'base/msg.html' %}
+    <div class="card-deck mt-3">
+        <div class="card text-center mdui-card mb-3">
+            <div class="card-body">
+                <h3 class="card-title">{{ comic_count }} <span class="text-muted">Comics</span></h3>
+            </div>
+        </div>
+        <div class="card text-center mdui-card mb-3">
+            <div class="card-body">
+                <h3 class="card-title">{{ chapter_count }} <span class="text-muted">Chapters</span></h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-deck mt-3">
+        <div class="card text-center mdui-card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Refresh Comics</h4>
+                <p class="card-text">Refresh all comics to keep update.</p>
+                <button class="btn btn-primary" onclick="request('{{ url_for("admin.refresh_comics") }}', $(this), 'comics')">Refresh</button>
+            </div>
+        </div>
+        <div class="card text-center mdui-card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Refresh Chapters</h4>
+                <p class="card-text">Refresh all chapters to keep update.</p>
+                <button class="btn btn-primary" onclick="request('{{ url_for("admin.refresh_chapters") }}', $(this), 'chapters')">Refresh</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+    <script>
+        function request(url, loader, resource) {
+            loader.text('Refreshing...').addClass('disabled').prop('disabled', true);
+            $.get(url, function (res) {
+                messge('Refresh succeed, refreshed ' + res.length + ' ' + resource);
+            }).fail(function () {
+                messge('Refresh failed', 'error');
+            }).always(function () {
+                loader.text('Refresh').removeClass('disabled').prop('disabled', false);
+            });
+        }
+    </script>
+{% endblock %}

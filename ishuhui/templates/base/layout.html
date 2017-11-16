@@ -9,13 +9,17 @@
         <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
         <link href="//cdn.bootcss.com/mdui/0.3.0/css/mdui.min.css" rel="stylesheet">
         <link href="{{ url_for('static', filename='style.css') }}" rel=stylesheet>
-        <link rel="shortcut icon" href="https://static.lufficc.com/favicon.ico" />
+        <link rel="shortcut icon" href="https://static.lufficc.com/favicon.ico"/>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81713716-4"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-81713716-4');
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+            gtag('config', 'UA-81713716-4');
         </script>
     {% endblock %}
 </head>
@@ -26,13 +30,15 @@
 </div>
 {% block footer %}
     <center class="mt-2 mb-2">&copy; Copyright 2017 By <a href="https://lufficc.com">lufficc</a>.</center>
-    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+    <div id="snackbar"></div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/mdui/0.3.0/js/mdui.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script src="//cdn.bootcss.com/masonry/4.2.0/masonry.pkgd.min.js"></script>
     <script src="//cdn.bootcss.com/list.js/1.5.0/list.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,27 @@
+{% extends "base/layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-md-6">
+            {% include 'base/msg.html' %}
+            <div class="card mdui-card">
+                <div class="card-body">
+                    <h4 class="card-title">Login</h4>
+                    <form method="post" action="{{ url_for('auth.login') }}">
+                        <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Enter username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Login</button>
+                        <a class="btn btn-link" href="/">Go home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
