@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort, current_app, flash, redirect, session, url_for
 from flask import request
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 from ..models.user import User
 
@@ -12,13 +12,13 @@ def csrf_protect():
     if request.method == "POST":
         token = session.pop('_csrf_token', None)
         request_token = request.form.get('_csrf_token')
-        if not token or not request_token or token != request_token:
+        if not token or token != request_token:
             abort(403)
 
 
 @bp_auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
+    if request.method == 'GET' and not current_user.is_authenticated:
         return render_template('login.html')
     elif request.method == 'POST':
         username = request.form.get('username')
@@ -30,13 +30,12 @@ def login():
             login_user(User())
             flash('Login succeed!', 'success')
             return redirect(url_for('admin.mange'))
-    abort(404)
+    return redirect('/')
 
 
 @bp_auth.route('/logout', methods=['GET'])
 def logout():
+    if not current_user.is_authenticated:
+        abort(403)
     logout_user()
     return redirect('/')
-
-
-
