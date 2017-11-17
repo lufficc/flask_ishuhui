@@ -31,6 +31,15 @@
             </div>
         </div>
     </div>
+    <ul class="list-group">
+        {% for comic in comics %}
+            <a class="list-group-item list-group-item-action" href="{{ url_for('comic.chapters', comic_id=comic.id) }}">
+                <img src="{{ comic.front_cover }}" height="20" class="pr-2">
+                {{ comic.title }}
+                <span class="badge badge-secondary badge-pill float-right">{{ comic.chapters_count }}</span>
+            </a>
+        {% endfor %}
+    </ul>
 {% endblock %}
 {% block footer %}
     {{ super() }}

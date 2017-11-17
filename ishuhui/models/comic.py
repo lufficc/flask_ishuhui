@@ -1,3 +1,4 @@
+import ishuhui.data
 from ishuhui.extensions.flasksqlalchemy import db
 
 
@@ -10,3 +11,7 @@ class Comic(db.Model):
     author = db.Column(db.String(256), nullable=True)
     classify_id = db.Column(db.Integer, nullable=False)
     front_cover = db.Column(db.String(256), nullable=True)
+
+    @property
+    def chapters_count(self):
+        return ishuhui.data.count_chapters(self.id)

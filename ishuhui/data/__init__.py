@@ -14,6 +14,12 @@ def get_comic(comic_id):
     return Comic.query.get(comic_id)
 
 
+def count_chapters(comic_id=None):
+    if comic_id is None:
+        return Chapter.query.count()
+    return Chapter.query.filter_by(comic_id=comic_id).count()
+
+
 def get_chapters(comic_id=None):
     if comic_id is None:
         return Chapter.query.order_by(Chapter.chapter_number.desc()).all()

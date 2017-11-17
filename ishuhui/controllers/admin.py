@@ -19,7 +19,7 @@ bp_admin.before_request(login)
 
 @bp_admin.route('/mange', methods=['GET'])
 def mange():
-    return render_template('mange.html', chapter_count=Chapter.query.count(), comic_count=Comic.query.count())
+    return render_template('mange.html', chapter_count=Chapter.query.count(), comic_count=Comic.query.count(), comics=Comic.query.all())
 
 
 @bp_admin.route('/refresh_comics')
