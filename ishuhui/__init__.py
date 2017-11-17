@@ -3,7 +3,7 @@ from flask import Flask
 from . import csrf
 
 
-def create_app(config):
+def create_app(config, should_register_blueprints=True):
     app = Flask(__name__)
     app.config.from_object(config)
     app.config.from_envvar('FLASKR_SETTINGS', silent=True)
@@ -17,6 +17,15 @@ def create_app(config):
     from ishuhui.logger import init_logger
     init_logger(app)
 
+    if should_register_blueprints:
+        register_blueprints(app)
+
+    with app.app_context():
+        db.create_all()
+    return app
+
+
+def register_blueprints(app):
     from ishuhui.controllers.comic import bp_comic
     app.register_blueprint(bp_comic)
 
@@ -28,10 +37,3 @@ def create_app(config):
 
     from ishuhui.controllers.error import bp_error
     app.register_blueprint(bp_error)
-
-    from ishuhui.schedulers.scheduler import init_scheduler
-    init_scheduler(app)
-
-    with app.app_context():
-        db.create_all()
-    return app

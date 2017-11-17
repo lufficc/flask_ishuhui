@@ -62,14 +62,20 @@ def load_chapters(page, comic_id):
     return response.json()['Return']['List']
 
 
-def refresh_chapters():
+def refresh_chapters(listener=None):
     comics = data.get_comics()
-    result = []
+    results = []
+    total = len(comics)
+    current = 0
     for comic in comics:
         comic_id, saved_chapter_num = refresh_chapter(comic.id)
-        if saved_chapter_num > 0:
-            result.append((comic_id, saved_chapter_num))
-    return result
+        current += 1
+        result = {'comic_id': comic_id, 'count': saved_chapter_num}
+        results.append(result)
+        if listener is not None:
+            listener(current, total, result)
+
+    return results
 
 
 def refresh_comic_images():
