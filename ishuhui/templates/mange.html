@@ -33,7 +33,7 @@
                 <h4 class="card-title">Refresh Chapters</h4>
                 <p class="card-text">Refresh all chapters to keep update.</p>
                 {% if enable_celery %}
-                    <button class="btn btn-primary" onclick="refreshChapters('{{ url_for("admin.refresh_chapters") }}', $(this))">Refresh</button>
+                    <button class="btn btn-primary" id="btn_refresh_chapters" onclick="refreshChapters('{{ url_for("admin.refresh_chapters") }}', $(this))">Refresh</button>
                 {% else %}
                     <button class="btn btn-primary" onclick="request('{{ url_for("admin.refresh_chapters") }}', $(this), 'chapters')">Refresh</button>
                 {% endif %}
@@ -53,6 +53,16 @@
 {% block footer %}
     {{ super() }}
     <script>
+        {% if enable_celery and running %}
+            setToRunningState($('#btn_refresh_chapters'), "{{ task_id }}");
+        {% endif %}
+        function setToRunningState(loader, task_id) {
+            var progressBar = $('#progress-bar-wrapper');
+            loader.text('Refreshing...').addClass('disabled').prop('disabled', true);
+            progressBar.removeClass('d-none');
+            update_progress("/admin/tasks/status/" + task_id, loader)
+        }
+
         function refreshChapters(url, loader) {
             var progressBar = $('#progress-bar-wrapper');
             loader.text('Refreshing...').addClass('disabled').prop('disabled', true);

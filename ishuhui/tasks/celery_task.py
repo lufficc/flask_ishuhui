@@ -9,7 +9,7 @@ app = create_app('env', False)
 celery = create_celery(app)
 
 
-@periodic_task(run_every=(crontab(minute='*/10', hour='3,14,17,20', day_of_week='thu,fri')), name="refresh_chapters_task", ignore_result=True)
+@periodic_task(run_every=(crontab(minute='*/10', hour='3,14,17,20', day_of_week='thu,fri')), name="scheduled_refresh_chapters_task", ignore_result=True)
 def scheduled_refresh_chapters_task():
     with app.app_context():
         task.refresh_chapters()
