@@ -31,7 +31,7 @@ and real time search by [List.js](http://listjs.com).
 1. Visit `/admin/refresh_comics?username=<username>&password=<password>` to fill all comics to database.
 1. Visit `/admin/refresh_chapters?username=<username>&password=<password>` to fill all chapters to database.
 1. Set `ENABLE_CELERY` to `True` if you want to use celery.
-1. Start celery by `celery -A ishuhui.tasks.celery_task.celery worker -B` in `flask_ishuhui` folde(save folder as `run.py`).
+1. Start celery by `celery -A ishuhui.tasks.celery_task.celery worker -B -E` in `flask_ishuhui` folde(same folder as `run.py`).
 
 NOTE: `username` and `password` are defined in [env.py](env.py)
 
