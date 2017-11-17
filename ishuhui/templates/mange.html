@@ -31,7 +31,7 @@
             {% endif %}
             <div class="card-body">
                 <h4 class="card-title">Refresh Chapters</h4>
-                <p class="card-text">Refresh all chapters to keep update.</p>
+                <p class="card-text">Refresh all chapters to keep update.<span id="state" class="badge badge-secondary"></span></p>
                 {% if enable_celery %}
                     <button class="btn btn-primary" id="btn_refresh_chapters" onclick="refreshChapters('{{ url_for("admin.refresh_chapters") }}', $(this))">Refresh</button>
                 {% else %}
@@ -86,6 +86,7 @@
             $.get(url, function (res) {
                 var progress = res['progress'];
                 var state = res['state'];
+                $('#state').text(state);
                 setProgress(progress);
                 if (state !== 'PENDING' && state !== 'PROGRESS') {
                     if (state === 'SUCCESS') {
@@ -101,7 +102,7 @@
                     // rerun every second
                     setTimeout(function () {
                         update_progress(url, loader);
-                    }, 1000);
+                    }, 5000);
                 }
             }).fail(function () {
                 setTimeout(function () {
