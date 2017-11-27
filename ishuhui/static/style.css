@@ -3,6 +3,29 @@
     border: none;
 }
 
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+.bg-half-transparent {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.chapters-content {
+    background-color: transparent;
+}
+
+.chapters-img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: -1;
+    object-fit: cover;
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+}
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
     visibility: hidden; /* Hidden by default. Visible on click */

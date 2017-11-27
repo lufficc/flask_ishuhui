@@ -1,5 +1,5 @@
 {% set classify_id = request.args.get('classify_id') %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="font-weight-bold navbar navbar-expand-lg {% if transparent is defined %}navbar-dark bg-half-transparent{% else %}bg-light navbar-light{% endif %}">
     <a class="navbar-brand" href="/">
         <img src="https://i.loli.net/2017/08/26/59a15ddf9c36f.png" width="30" height="30" class="d-inline-block align-top" alt="">
         鼠绘漫画
