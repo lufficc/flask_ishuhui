@@ -28,12 +28,23 @@ and real time search by [List.js](http://listjs.com).
 1. `cd flask_ishuhui`
 1. `python run.py`
 1. Open localhost:5000
-1. Visit `/admin/refresh_comics?username=<username>&password=<password>` to fill all comics to database.
-1. Visit `/admin/refresh_chapters?username=<username>&password=<password>` to fill all chapters to database.
+1. Login using `username` and `password`.
 1. Set `ENABLE_CELERY` to `True` if you want to use celery.
 1. Start celery by `celery -A ishuhui.tasks.celery_task.celery worker -B -E` in `flask_ishuhui` folde(same folder as `run.py`).
 
 NOTE: `username` and `password` are defined in [env.py](env.py)
+
+### More screenshots
+
+<p align="center">
+  <img src="https://i.loli.net/2017/12/05/5a26039a3a834.png" style="width:80%" alt="Latest"/>
+  <b>Latest</b>
+  <img src="https://i.loli.net/2017/12/05/5a2600e3429b8.png" style="width:80%" alt="One Piece"/>
+  <b>One Piece</b>
+  <img src="https://i.loli.net/2017/12/05/5a26015d390af.png" style="width:80%" alt="Mange"/>
+  <b>Mange Dashboard</b>
+</p>
+
 
 ### License
 
