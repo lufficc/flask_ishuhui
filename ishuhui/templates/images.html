@@ -1,7 +1,7 @@
 {% extends "base/layout.html" %}
 {% block head %}
     {{ super() }}
-    <link href="https://cdn.bootcss.com/lightgallery/1.6.0/css/lightgallery.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
 {% endblock %}
 {% block title %}{{ comic.title }}{{ chapter.chapter_number }}-{{ chapter.title }}{% endblock %}
 {% block content %}
@@ -27,10 +27,9 @@
                 </div>
                 <div>
                     {% for image in images %}
-                        <div class="image" data-src="{{ image }}">
-                            <img src="{{ image }}" class="img-fluid mb-1"
-                                 style="width:100%;display:block;">
-                        </div>
+                        <a class="image" href="{{ image }}">
+                            <img src="{{ image }}" class="img-fluid mb-1" style="width:100%;display:block;">
+                        </a>
                     {% endfor %}
                 </div>
                 <div class="card-footer">
@@ -51,14 +50,18 @@
 {% endblock %}
 {% block footer %}
     {{ super() }}
-    <script src="https://cdn.bootcss.com/lightgallery/1.6.0/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.bootcss.com/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script>
-        var gallery = $("#images").lightGallery({
-            selector: '.image',
-            share: false,
-            pause: 10000,
-            closable: false,
-            controls: false
+        $(document).ready(function () {
+            $('.image').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    tCounter: '<span class="mfp-counter">%curr% of %total% Pictures</span>',
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                }
+            });
         });
     </script>
 {% endblock %}

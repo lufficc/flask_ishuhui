@@ -11,7 +11,7 @@ and real time search by [List.js](http://listjs.com).
 
 * Clear project structure.
 * Controllers, logger, scheduler, extensions, models, tasks etc.
-* Front end build with [Bootstrap4](https://github.com/twbs/bootstrap), [List.js](http://listjs.com), [lightgallery.js](https://sachinchoolur.github.io/lightgallery.js/), [Masonry](https://masonry.desandro.com/), [MDUI](https://www.mdui.org/), and [imagesLoaded](https://imagesloaded.desandro.com/).
+* Front end build with [Bootstrap4](https://github.com/twbs/bootstrap), [List.js](http://listjs.com), [Magnific Popup](http://dimsemenov.com/plugins/magnific-popup/), [Masonry](https://masonry.desandro.com/), [MDUI](https://www.mdui.org/), and [imagesLoaded](https://imagesloaded.desandro.com/).
 * Add login.
 * Message flash.
 * Using `celery` to load data asynchronously (Optional), with a progress dashboard.
